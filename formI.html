@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Trip information</title>
+<!-----Including CSS for different screen sizes----->
+<link rel="stylesheet" type="text/css" href="responsiveform.css">
+<link rel="stylesheet" media="screen and (max-width: 1200px) and (min-width: 601px)" href="responsiveform1.css" />
+<link rel="stylesheet" media="screen and (max-width: 600px) and (min-width: 351px)" href="responsiveform2.css" />
+<link rel="stylesheet" media="screen and (max-width: 350px)" href="responsiveform3.css" />
+<script>
+$(document).ready(function(){
+$("#loaddata").click(function(){ 
+incomeA=$("#1").val();
+incomeT=$("#2").val();
+D=$("#3").val();
+M=$("#4").val();
+sID=$("#5").val();
+tID=$("#6").val();
+cID=$("#7").val();
+CT=$("#8").val();
+CQ=$("#9").val();
+CW=$("#10").val();
+EID=$("#11").val();
+
+$.ajax({url:"income.php",data:{incomeAmount:incomeA, incomeTitle: incomeT, day: D, month:M,shipmentID: SID, trackingID:TID, commodityID: CID, commodityType: CT, commodityQuantity: CQ  , commodityWeight: CW  , expenseID: EID    },success: function(ajaxresult){
+$("#ajaxrequest").html(ajaxresult);
+}});
+});
+});
+</script>
+</head>
+<body>
+<div id="ajaxrequest"></div>
+<div id="envelope">
+<form action="income.php" class="register" method="POST">
+            <h1>Trip Information Entry Form</h1>
+			<fieldset class="row1">
+                <legend>Income Information</legend>
+				<p>
+                    <label>Income Amount
+                    </label>
+                    <input name="incomeAmount" id="1" type="text" required="required"/>
+
+			<label>Income Title
+                    </label>
+                    <input name="incomeTitle" id="2" type="text" required="required"/>
+
+                    <label>Date(2014)*
+                    </label>
+                    <select class="date" name="day" id="3">
+                        <option value="1">01
+                        </option>
+                        <option value="2">02
+                        </option>
+                        <option value="3">03
+                        </option>
+                        <option value="4">04
+                        </option>
+                        <option value="5">05
+                        </option>
+                        <option value="6">06
+                        </option>
+                        <option value="7">07
+                        </option>
+                        <option value="8">08
+                        </option>
+                        <option value="9">09
+                        </option>
+                        <option value="10">10
+                        </option>
+                        <option value="11">11
+                        </option>
+                        <option value="12">12
+                        </option>
+                        <option value="13">13
+                        </option>
+                        <option value="14">14
+                        </option>
+                        <option value="15">15
+                        </option>
+                        <option value="16">16
+                        </option>
+                        <option value="17">17
+                        </option>
+                        <option value="18">18
+                        </option>
+                        <option value="19">19
+                        </option>
+                        <option value="20">20
+                        </option>
+                        <option value="21">21
+                        </option>
+                        <option value="22">22
+                        </option>
+                        <option value="23">23
+                        </option>
+                        <option value="24">24
+                        </option>
+                        <option value="25">25
+                        </option>
+                        <option value="26">26
+                        </option>
+                        <option value="27">27
+                        </option>
+                        <option value="28">28
+                        </option>
+                        <option value="29">29
+                        </option>
+                        <option value="30">30
+                        </option>
+                        <option value="31">31
+                        </option>
+                    </select>
+                    <select name="month" id="4">
+                        <option value="1">January
+                        </option>
+                        <option value="2">February
+                        </option>
+                        <option value="3">March
+                        </option>
+                        <option value="4">April
+                        </option>
+                        <option value="5">May
+                        </option>
+                        <option value="6">June
+                        </option>
+                        <option value="7">July
+                        </option>
+                        <option value="8">August
+                        </option>
+                        <option value="9">September
+                        </option>
+                        <option value="10">October
+                        </option>
+                        <option value="11">November
+                        </option>
+                        <option value="12">December
+                        </option>
+                    </select>					
+		
+				<div class="clear"></div>
+            </fieldset>
+
+
+	    <fieldset class="row4">
+                <legend>Shipment Information</legend>
+				<p>
+                    <label>Shipment ID
+                    </label>
+                    <input name="shipmentID" type="text" id="5" required="required"/>
+
+			<label>Tracking ID
+                    </label>
+                    <input name="trackingID" type="text" id="6" required="required"/>
+		
+				<div class="clear"></div>
+            </fieldset>
+
+
+	   <fieldset class="row5">
+                <legend>Commodity Information</legend>
+				<p>
+			                    <label>Commodity ID
+                    </label>
+                    <input name="commodityID" type="text" id="7" required="required"/>
+
+
+
+                    <label>Commodity Type
+                    </label>
+                    <input name="commodityType" type="text" id="8" required="required"/>
+
+			<label>Commodity Quantity 
+                    </label>
+                    <input name="commodityQuantity" type="text" id="9" required="required"/>
+		
+			<label>Commodity weight (in Kg)
+                    </label>
+                    <input name="commodityWeight" type="text" id="10" required="required"/>
+		
+				<div class="clear"></div>
+            </fieldset>
+
+	    <fieldset class="row6">
+
+		 <legend>Delivery Information</legend>
+				<p>
+                    <label>Expense ID
+                    </label>
+                    <input name="expenseID" type="text" id="11" required="required"/>
+
+
+				<div class="clear"></div>
+            </fieldset>
+            
+			<button type="submit"id="loaddata" class="btn"  style="float:left;
+    margin:10px;
+	padding:5px;
+	background: #4C99CC; cursor:pointer;background-image: linear-gradient(bottom,rgba(0, 0, 0, 0.1) 0,rgba(255, 255, 255, 0.1) 100%);
+	background-image: -o-linear-gradient(bottom,rgba(0, 0, 0, 0.1) 0,rgba(255, 255, 255, 0.1) 100%);
+	background-image: -moz-linear-gradient(bottom,rgba(0, 0, 0, 0.1) 0,rgba(255, 255, 255, 0.1) 100%);
+	background-image: -webkit-linear-gradient(bottom,rgba(0, 0, 0, 0.1) 0,rgba(255, 255, 255, 0.1) 100%);
+	background-image: -ms-linear-gradient(bottom,rgba(0, 0, 0, 0.1) 0,rgba(255, 255, 255, 0.1) 100%);
+	background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0,rgba(0, 0, 0, 0.1)),color-stop(1,rgba(255, 255, 255, 0.1)));">Confirm</button>
+			<div class="clear"></div>
+        </form>
+
+</div>
+</body>
+</html>

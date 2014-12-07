@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+	<meta charset="utf-8" />
+	<title>Expense Entry</title>
+	<!-----Including CSS for different screen sizes----->
+<link rel="stylesheet" type="text/css" href="responsiveform.css">
+<link rel="stylesheet" media="screen and (max-width: 1200px) and (min-width: 601px)" href="responsiveform1.css" />
+<link rel="stylesheet" media="screen and (max-width: 600px) and (min-width: 351px)" href="responsiveform2.css" />
+<link rel="stylesheet" media="screen and (max-width: 350px)" href="responsiveform3.css" />
+
+	<style>
+		#map { width:60%; height:270px; }
+	</style>
+
+	<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+</head>
+<body>
+<h1>Locally Storing:</h1>
+<p> Longitude: 
+<div id="result1"> 
+</div>
+
+<p> Latitude: 
+<div id="result2"> 
+</div>
+<div id="envelope">
+<form id="e1" action="expense.php" class="register" method="POST">
+            <h1>Expense Entry Form</h1>
+			<fieldset class="row1">
+				<p>
+				<label>Expense ID
+                    </label>
+                    <input name="expenseID" type="text" required="required"/>
+                    <label>Expense Title
+                    </label>
+                    <input name="expenseTitle" type="text" required="required"/>
+			
+	
+                  
+			<label>Expense Amount
+                    </label>
+                    <input name="expenseAmount" type="text" required="required"/>
+
+			 <label>Longitude
+                    </label>
+                    <input name="long" id="mytext1" type=lon required="required" readonly/>
+		
+		 <label>Latitude
+                    </label>
+                    <input name="lat" id="mytext2" type=lat required="required" readonly/>
+
+	
+            </fieldset>
+            
+			<input class="submit" type="submit" value="Confirm &raquo;"  />	
+			<div class="clear" id="#e2"></div>
+</form>
+</div>
+	<p>Click on the marker for position information.</p>
+		<p id="demmo"></p>
+	<div id="map"></div>
+	<script>
+		var marker;var lon; var lat;
+		var infoWindow;
+		var x = document.getElementById("demmo");
+
+		if (navigator.geolocation) {
+			var timeoutVal = 10 * 1000 * 1000;
+			navigator.geolocation.watchPosition(
+				displayPosition, 
+				displayError,
+				{ enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0 }
+			);
+		}
+		else {
+			alert("Geolocation is not supported by this browser");
+		}
+
+		function store()
+		{
+
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+    document.getElementById("demmo").innerHTML=xmlhttp.responseText;
+    }
+  }
+				 
+xmlhttp.open("POST","expense.php?",true);
+xmlhttp.send();
+}
+
+
+function storeLocally(lon,lat) {			
+  
+        localStorage.setItem("longitude", lon);
+	        localStorage.setItem("latitude", lat);
+	document.getElementById("result1").innerHTML = localStorage.getItem("longitude");
+	document.getElementById("result2").innerHTML = localStorage.getItem("latitude");
+}
+		function displayPosition(position) {			
+			var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+			lon=position.coords.longitude;
+			lat=position.coords.latitude;
+			var str=lon+"<br>"+lat;
+			document.getElementById("mytext1").value = localStorage.getItem("longitude");
+			document.getElementById("mytext2").value = localStorage.getItem("latitude");
+			
+			storeLocally(lon,lat);		
+
+			x.innerHTML = "Latitude: " + position.coords.latitude + 
+    "<br>Longitude: " + position.coords.longitude;	
+			var options = {
+				zoom: 10,
+				center: pos,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+			var map = new google.maps.Map(document.getElementById("map"), options);
+			// Remove the current marker, if there is one
+			if (typeof(marker) != "undefined") marker.setMap(null);
+			marker = new google.maps.Marker({
+				position: pos,
+				map: map,
+				title: "User location"
+			});
+			var contentString = "<b>Timestamp:</b> " + parseTimestamp(position.timestamp) + "<br/><b>User location:</b> lat " + position.coords.latitude + ", long " + position.coords.longitude + ", accuracy " + position.coords.accuracy;
+			// Remove the current infoWindow, if there is one
+			if (typeof(infoWindow) != "undefined") infoWindow.setMap(null);
+			infowindow = new google.maps.InfoWindow({
+				content: contentString
+			});
+			google.maps.event.addListener(marker, 'click', function() {
+				infowindow.open(map,marker);
+			});
+		}
+	
+
+
+		function displayError(error) {
+			var errors = { 
+				1: 'Permission denied',
+				2: 'Position unavailable',
+				3: 'Request timeout'
+			};
+			alert("Error: " + errors[error.code]);
+		}
+		function parseTimestamp(timestamp) {
+			var d = new Date(timestamp);
+			var day = d.getDate();
+			var month = d.getMonth() + 1;
+			var year = d.getFullYear();
+			var hour = d.getHours();
+			var mins = d.getMinutes();
+			var secs = d.getSeconds();
+			var msec = d.getMilliseconds();
+			return day + "." + month + "." + year + " " + hour + ":" + mins + ":" + secs + "," + msec;
+		}
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Trip information</title>
+<!-----Including CSS for different screen sizes----->
+<link rel="stylesheet" type="text/css" href="responsiveform.css">
+<link rel="stylesheet" media="screen and (max-width: 1200px) and (min-width: 601px)" href="responsiveform1.css" />
+<link rel="stylesheet" media="screen and (max-width: 600px) and (min-width: 351px)" href="responsiveform2.css" />
+<link rel="stylesheet" media="screen and (max-width: 350px)" href="responsiveform3.css" />
+<script>
+$(document).ready(function(){
+$("#loaddata1").click(function(){ 
+
+cID=$("#1").val();
+
+$.ajax({url:"process.php",data:{commodityID: CID},success: function(ajaxresult){
+$("#ajaxrequest").html(ajaxresult);
+}});
+});
+});
+
+$("#loaddata2").click(function(){ 
+D=$("#2").val();
+
+$.ajax({url:"process.php",data:{day: D},success: function(ajaxresult){
+$("#ajaxrequest").html(ajaxresult);
+}});
+});
+
+$("#loaddata3").click(function(){ 
+M=$("#3").val();
+
+$.ajax({url:"process.php",data:{month:M},success: function(ajaxresult){
+$("#ajaxrequest").html(ajaxresult);
+}});
+});
+
+
+</script>
+</head>
+<body>
+<div id="envelope">
+<form action="process.php" class="register" method="POST">
+            <h1>View Report</h1>
+			<fieldset class="row1">
+
+	<legend>Filter Result by Commodity</legend>
+						<p>
+                    <label>Commodity ID
+                    </label>
+                    <input name="commodityID" type="text" id="1" required="required"/>
+
+            </fieldset>
+	    
+	<button type="submit"id="loaddata1" class="btn" >Confirm</button>
+			<div class="clear"></div>
+			
+			
+</form>
+<form action="process.php" class="register" method="POST">
+            <fieldset class="row2">
+		<legend>Filter Result by Date</legend>
+		<p>
+            <label>Date(2014)*
+                    </label>
+                    <select class="date" name="day" id="2">
+                        <option value="1">01
+                        </option>
+                        <option value="2">02
+                        </option>
+                        <option value="3">03
+                        </option>
+                        <option value="4">04
+                        </option>
+                        <option value="5">05
+                        </option>
+                        <option value="6">06
+                        </option>
+                        <option value="7">07
+                        </option>
+                        <option value="8">08
+                        </option>
+                        <option value="9">09
+                        </option>
+                        <option value="10">10
+                        </option>
+                        <option value="11">11
+                        </option>
+                        <option value="12">12
+                        </option>
+                        <option value="13">13
+                        </option>
+                        <option value="14">14
+                        </option>
+                        <option value="15">15
+                        </option>
+                        <option value="16">16
+                        </option>
+                        <option value="17">17
+                        </option>
+                        <option value="18">18
+                        </option>
+                        <option value="19">19
+                        </option>
+                        <option value="20">20
+                        </option>
+                        <option value="21">21
+                        </option>
+                        <option value="22">22
+                        </option>
+                        <option value="23">23
+                        </option>
+                        <option value="24">24
+                        </option>
+                        <option value="25">25
+                        </option>
+                        <option value="26">26
+                        </option>
+                        <option value="27">27
+                        </option>
+                        <option value="28">28
+                        </option>
+                        <option value="29">29
+                        </option>
+                        <option value="30">30
+                        </option>
+                        <option value="31">31
+                        </option>
+                    </select>
+                    			
+		
+            </fieldset>
+	<button type="submit"id="loaddata2" class="btn">Confirm</button>
+			<div class="clear"></div>
+			
+			
+</form>
+<form action="process.php" class="register" method="POST">
+            
+	    <fieldset class="row3">
+		<legend>Filter Result by Month</legend>
+		<p>
+            <label>Month(2014)*
+                    </label>
+
+                    <select name="month" id="3">
+                        <option value="1">January
+                        </option>
+                        <option value="2">February
+                        </option>
+                        <option value="3">March
+                        </option>
+                        <option value="4">April
+                        </option>
+                        <option value="5">May
+                        </option>
+                        <option value="6">June
+                        </option>
+                        <option value="7">July
+                        </option>
+                        <option value="8">August
+                        </option>
+                        <option value="9">September
+                        </option>
+                        <option value="10">October
+                        </option>
+                        <option value="11">November
+                        </option>
+                        <option value="12">December
+                        </option>
+                    </select>					
+		
+            </fieldset>
+	<button type="submit"id="loaddata3" class="btn">Confirm</button>
+			<div class="clear"></div>
+			
+			
+</form>
+
+</div>
+
+</body>
+</html>
